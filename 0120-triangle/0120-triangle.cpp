@@ -23,7 +23,7 @@ public:
     }
     int minimumTotal(vector<vector<int>>& triangle) {
         int level = triangle.size() -1;
-        int ans = INT_MAX;
+        // int ans = INT_MAX;
         //Tabulation:
         // vector<vector<int>> dp;
         // for(int i=0;i<=level;i++){
@@ -69,8 +69,8 @@ public:
             }
             // triangle[i] = temp;
         }
-        for(int i=0;i<triangle[level].size();i++){
-            ans = min(ans,triangle[level][i]);
+        for(int i=1;i<triangle[level].size();i++){
+            triangle[level][i] = min(triangle[level][i],triangle[level][i-1]);
         }
 
 
@@ -81,6 +81,6 @@ public:
         //     sum = fetch(i,level,triangle,sum,dp);
         //     ans = min(sum,ans);
         // }
-        return ans;
+        return triangle[level][level];
     }
 };
