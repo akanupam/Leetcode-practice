@@ -24,28 +24,51 @@ public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int level = triangle.size() -1;
         int ans = INT_MAX;
-        vector<vector<int>> dp;
-        for(int i=0;i<=level;i++){
-            vector<int> temp(i+1,-1);
-            dp.push_back(temp);
-        }
-        dp[0][0] = triangle[0][0];
-        for(int i=1;i<=level;i++){
-            dp[i][0] = dp[i-1][0] + triangle[i][0];
-        }
-        for(int i=1;i<=level;i++){
-            dp[i][i] = dp[i-1][i-1] + triangle[i][i];
-        }
+        //Tabulation:
+        // vector<vector<int>> dp;
+        // for(int i=0;i<=level;i++){
+        //     vector<int> temp(i+1,-1);
+        //     dp.push_back(temp);
+        // }
+        // dp[0][0] = triangle[0][0];
+        // for(int i=1;i<=level;i++){
+        //     dp[i][0] = dp[i-1][0] + triangle[i][0];
+        // }
+        // for(int i=1;i<=level;i++){
+        //     dp[i][i] = dp[i-1][i-1] + triangle[i][i];
+        // }
 
+        // for(int i=1;i<=level;i++){
+        //     for(int j=1;j<triangle[i].size()-1;j++){
+        //         dp[i][j] = triangle[i][j] + min(dp[i-1][j],dp[i-1][j-1]);
+        //     }
+        // }
+        // for(int i=0;i<triangle[level].size();i++){
+        //     ans = min(dp[level][i],ans);
+        // }
+
+        //Space Optimized Tabulation
+        vector<int> dp = triangle[0];
         for(int i=1;i<=level;i++){
-            for(int j=1;j<triangle[i].size()-1;j++){
-                dp[i][j] = triangle[i][j] + min(dp[i-1][j],dp[i-1][j-1]);
+            vector<int> temp;
+            for(int j=0;j<triangle[i].size();j++){
+                if(j==0){
+                    temp.push_back(triangle[i][j] + dp[j]);
+                }else if(j==i){
+                    temp.push_back(triangle[i][j] + dp[j-1]);
+                }else{
+                    temp.push_back(triangle[i][j] + min(dp[j],dp[j-1]));
+                }
             }
+            dp = temp;
         }
-        for(int i=0;i<triangle[level].size();i++){
-            ans = min(dp[level][i],ans);
+        for(int i=0;i<dp.size();i++){
+            ans = min(ans,dp[i]);
         }
 
+
+
+        //Memoization in Recurrsion
         // for(int i=0;i<=level;i++){
         //     int sum = 0;
         //     sum = fetch(i,level,triangle,sum,dp);
