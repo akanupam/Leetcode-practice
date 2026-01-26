@@ -50,17 +50,24 @@ public:
         //Space Optimized Tabulation
         // vector<int> dp = triangle[0];
         for(int i=1;i<=level;i++){
-            vector<int> temp;
+            // vector<int> temp;
             for(int j=0;j<triangle[i].size();j++){
+                // if(j==0){
+                //     temp.push_back(triangle[i][j] + triangle[i-1][j]);
+                // }else if(j==i){
+                //     temp.push_back(triangle[i][j] + triangle[i-1][j-1]);
+                // }else{
+                //     temp.push_back(triangle[i][j] + min(triangle[i-1][j],triangle[i-1][j-1]));
+                // }
                 if(j==0){
-                    temp.push_back(triangle[i][j] + triangle[i-1][j]);
+                    triangle[i][j] = triangle[i][j] + triangle[i-1][j];
                 }else if(j==i){
-                    temp.push_back(triangle[i][j] + triangle[i-1][j-1]);
+                    triangle[i][j] = triangle[i][j] + triangle[i-1][j-1];
                 }else{
-                    temp.push_back(triangle[i][j] + min(triangle[i-1][j],triangle[i-1][j-1]));
+                    triangle[i][j] = triangle[i][j] + min(triangle[i-1][j],triangle[i-1][j-1]);
                 }
             }
-            triangle[i] = temp;
+            // triangle[i] = temp;
         }
         for(int i=0;i<triangle[level].size();i++){
             ans = min(ans,triangle[level][i]);
