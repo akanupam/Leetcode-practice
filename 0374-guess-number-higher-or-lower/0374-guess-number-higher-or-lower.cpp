@@ -13,7 +13,7 @@ public:
         int l = 1;
         int r = n;
         while(l<r){
-            int mid = (l+r)/2;
+            int mid = l+ (r-l)/2;
             if(guess(mid)==0){
                 return mid;
             }else if(guess(mid)==1){
