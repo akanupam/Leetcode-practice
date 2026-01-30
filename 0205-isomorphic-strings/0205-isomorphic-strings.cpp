@@ -1,55 +1,29 @@
 class Solution {
 public:
-    bool iso(string s,string t){
-        map<int,int> mpp;
-        if(s.length() != t.length()) return false;
-        if(s.length() == 0 && t.length()==0){
-            return true;
-        }
-        int a = s[0];
-        int b = t[0];
-        mpp[a] = b;
-        for(int i=1;i<s.length();i++){
-            int fst = s[i];
-            int sec = t[i];
-            if(mpp[fst] == 0){
-                mpp[fst] = sec;
+    bool isIso(string s, string t){
+        map<char,char> mpp;
+        for(int i=0;i<s.length();i++){
+            if(mpp.find(s[i])==mpp.end()){
+                mpp[s[i]] = t[i];
             }else{
-                if(mpp[fst] != sec){
-                    return false;
-                }
+                if(mpp[s[i]]!=t[i]) return false;
             }
         }
         return true;
     }
     bool isIsomorphic(string s, string t) {
-        bool a = iso(s,t);
-        bool b = iso(t,s);
-        if(a && b){
-            return true;
-        }else{
-            return false;
-        }
-        
-        
-        
-        
-        
-        
-        // for(int i =0;i<s.length();i++){
-        //     int first = s[i];
-        //     int second = t[i];
-        //     mpp1[first]++;
-        //     mpp2[second]++;
+        // vector<int> hashS(26,0);
+        // vector<int> hashT(26,0);
+        // for(int i=0;i<s.length();i++){
+        //     hashS[s[i] -'a']++;
+        //     hashT[t[i] -'a']++;
         // }
         // for(int i=0;i<s.length();i++){
-        //     int first = s[i];
-        //     int second = t[i];
-        //     if(mpp1[first]!=mpp2[second]){
-        //         return false;
-        //     }
+        //     if(hashS[s[i] -'a'] != hashT[t[i] -'a']) return false;
         // }
         // return true;
-
+        bool a = isIso(s,t);
+        bool b = isIso(t,s);
+        return a&&b;
     }
 };
