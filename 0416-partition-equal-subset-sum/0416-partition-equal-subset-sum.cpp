@@ -18,24 +18,25 @@ public:
         }
         if(rem%2!=0) return false;
         rem = rem/2;
-        vector<vector<bool>> dp(nums.size(),vector<bool>(rem+1,false));
-        for(int i=0;i<nums.size();i++){
-            dp[i][0] = true;
-        }
+        // vector<vector<bool>> dp(nums.size(),vector<bool>(rem+1,false));
+        vector<bool> dp(rem+1,false);
+        dp[0] = true;
         if(nums[0]<=rem){
-            dp[0][nums[0]] = true;
+            dp[nums[0]] = true;
         }
         for(int i=1;i<nums.size();i++){
-            for(int j=1;j<=rem;j++){
-                bool np = dp[i-1][j];
-                bool p = false;
-                if(nums[i]<=j){
-                    p = dp[i-1][j-nums[i]];
-                }
-                dp[i][j] = np||p;
+            for(int j=rem;j>=nums[i];j--){
+                // bool np = dp[i-1][j];
+                // bool p = false;
+                // if(nums[i]<=j){
+                //     p = dp[i-1][j-nums[i]];
+                // }
+                // dp[i][j] = np||p;
+                dp[j] = dp[j]||dp[j-nums[i]];
             }
         }
 
-        return dp[nums.size()-1][rem];
+        // return dp[nums.size()-1][rem];
+        return dp[rem];
     }
 };
