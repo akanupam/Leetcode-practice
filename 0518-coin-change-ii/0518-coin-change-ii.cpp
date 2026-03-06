@@ -15,20 +15,31 @@ public:
     }
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n, vector<int>(amount+1, -1));
-        int ans = f(coins, dp, amount, n-1);
-        return ans;
+        // vector<vector<int>> dp(n, vector<int>(amount+1, -1));
+        // int ans = f(coins, dp, amount, n-1);
+        // return ans;
+
         // if(amount)
-        // vector<int> prev(amount+1,0);
+        vector<int> prev(amount+1,0);
         // prev[0] = 1;
-        // if(coins[0]%amount==0) prev[coins[0]] = coins[0]/amount;
-        // for(int i=1;i<n;i++){
-        //     vector<int> curr(amount+1, 0);
-        //     for(int j=0;j<=amount;j++){
-        //         int np = prev[amount];
-        //         int p = 0;
-        //         if(coins[])
-        //     }
-        // } 
+        // prev[coins[0]] = coins[0]%amount==0;
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0){
+                prev[i] = 1;
+            }
+        }
+        for(int i=1;i<n;i++){
+            vector<int> curr(amount+1, 0);
+            for(int j=0;j<=amount;j++){
+                int np = prev[j];
+                int p = 0;
+                if(coins[i]<=j){
+                    p = curr[j-coins[i]];
+                }
+                curr[j] = np+p;
+            }
+            prev = curr;
+        }
+        return  prev[amount];
     }
 };
