@@ -13,8 +13,8 @@ public:
     int numDistinct(string s, string t) {
         int n = s.length();
         int m = t.length();
-        vector<vector<int>> dp(n+1, vector<int>(m+1,-1));
-        for(int i=0;i<=m;i++){
+        vector<vector<double>> dp(n+1, vector<double>(m+1,-1));
+        for(int i=1;i<=m;i++){
             dp[0][i] = 0;
         }
         for(int i=0;i<=n;i++){
@@ -30,6 +30,6 @@ public:
             }
         }
         // return f(n-1,m-1,s,t,dp);
-        return dp[n][m];
+        return (int)dp[n][m];
     }
 };
